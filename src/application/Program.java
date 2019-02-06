@@ -13,9 +13,9 @@ public class Program {
 
 		Department dep = new Department(1, "Books");
 
-		SellerDao sellerDao = DaoFactory.createSellerDao();
-		
 		Seller seller = new Seller(21, "Bob", "bob@gmail.com", new Date(), 2400.0, dep);
+		
+		SellerDao sellerDao = DaoFactory.createSellerDao();
 		
 		System.out.println(dep);
 		System.out.println(seller);
