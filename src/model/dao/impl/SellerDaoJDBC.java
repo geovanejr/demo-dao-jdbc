@@ -22,6 +22,8 @@ public class SellerDaoJDBC implements SellerDao {
 
 	private Connection conn;
 	
+	private static String sql = null;
+	
 	public SellerDaoJDBC(Connection conn) {
 		
 		this.conn = conn;
@@ -33,7 +35,7 @@ public class SellerDaoJDBC implements SellerDao {
 		PreparedStatement st = null;
 		
 		try {
-			String sql = "INSERT INTO seller " 
+			sql = "INSERT INTO seller " 
 		               + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
 					   + "VALUES " 
 		               + "(?, ?, ?, ?, ?)";
@@ -75,7 +77,7 @@ public class SellerDaoJDBC implements SellerDao {
 		
 		try {
 			
-			String sql = "UPDATE seller "
+			sql = "UPDATE seller "
 					   + "   SET Name = ?, "
 					   + "       Email = ?, "
 					   + "       BirthDate = ?, "
@@ -107,8 +109,27 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+
+		PreparedStatement st = null;
 		
+		try {
+			
+			sql = "DELETE from seller "
+				+ " WHERE id = ?";
+			
+			st = conn.prepareStatement(sql);
+			st.setInt(1, id);
+			
+			st.executeUpdate();
+			
+		} 
+		catch (SQLException e) {
+
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

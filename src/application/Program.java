@@ -58,6 +58,17 @@ public class Program {
 		seller = sellerDao.findById(seller.getId());
 		System.out.println(seller);
 
+		System.out.println("\n=== Test nº 6 - Seller Delete ===");
+		Integer id = seller.getId() - 1;
+		System.out.println("Id: " + id);
+		sellerDao.deleteById(id);
+
+		list = sellerDao.findAll();
+
+		for (Seller obj : list) {
+			System.out.println(obj);
+		}
+
 	}
 
 }
